@@ -13,4 +13,5 @@ MIN_ROW = 2  # skip first line
 MIN_COL = 1
 MAX_COL = 5
 
-MP_COUNT = cpu_count() - 1
+MP_COUNT = cpu_count()
+SLEEP_TIME = 10  # sec

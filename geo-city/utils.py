@@ -8,7 +8,7 @@ from openpyxl import Workbook
 import config
 
 
-def strig_generator(size=12, chars=string.ascii_uppercase) -> str:
+def string_generator(size=12, chars=string.ascii_uppercase) -> str:
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -27,18 +27,6 @@ class CityPoint:
     name: str
     lon: float
     lat: float
-
-#     def __eq__(self, other: "CityPoint") -> bool:
-#         if not isinstance(other, CityPoint):
-#             return False
-#         if self.name == other.name and self.lon == other.lon and self.lat == other.lat:
-#             return True
-#         return False
-#
-#     def __ne__(self, other: "CityPoint") -> bool:
-#         if not isinstance(other, CityPoint):
-#             return False
-#         return not self.__eq__(other)
 
 
 def converter():

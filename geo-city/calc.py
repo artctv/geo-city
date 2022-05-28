@@ -1,6 +1,7 @@
 from math import radians, cos, sin, asin, sqrt
 from multiprocessing import Queue, Event
 from typing import Final
+from copy import deepcopy
 
 from utils import CityPoint, CityDistances
 
@@ -24,12 +25,14 @@ def prepare_data(data: list[CityPoint]) -> dict[CityPoint, None]:
     return cities_data
 
 
-def calculate(data: list[CityPoint], read_q: Queue, write_q: Queue, event: Event()):
+def calculate(data: list[CityPoint], read_q: Queue, write_q: Queue, event: Event(), lock_e: Event):
     cities_data = prepare_data(data)
 
     cities_distances: dict[str, float] = {}
     while not read_q.empty():
-        cities_distances.clear()
+        if lock_e.is_set():
+            continue
+
         city_point: CityPoint = read_q.get()  # get from queue
         if city_point:
             i: CityPoint
@@ -41,7 +44,8 @@ def calculate(data: list[CityPoint], read_q: Queue, write_q: Queue, event: Event
                 cities_distances[i.name] = distance
             _ = cities_data.pop(city_point, None)
             cities_distances[city_point.name] = 0
-            city_distances = CityDistances(city=city_point.name, cities_distances=cities_distances)
+            city_distances = CityDistances(city=city_point.name, cities_distances=deepcopy(cities_distances))
             write_q.put(city_distances)
+            cities_distances.clear()
     else:
         event.set()
