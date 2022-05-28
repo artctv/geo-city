@@ -55,11 +55,16 @@ def main():
 
         time.sleep(config.SLEEP_TIME)
 
+    print("--- Data calculated ---")
     for p in processes:
         p.join()
 
+    print("--- Processes completed ---")
+
     for p in processes:
         p.terminate()
+
+    print("--- Processes terminated ---")
 
 
 if __name__ == "__main__":
