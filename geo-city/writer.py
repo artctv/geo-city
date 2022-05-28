@@ -27,7 +27,7 @@ def write(data: list[CityPoint], write_q: Queue, events: list[Event], lock_e: Ev
 
         row: dict[str, str | float] = {}
         bool_events = all(e.is_set() for e in events)
-        while not bool_events:
+        while not all([bool_events, write_q.empty()]):
             queue_data: CityDistances | None = write_q.get()
             if queue_data:
                 row.update(queue_data.cities_distances)

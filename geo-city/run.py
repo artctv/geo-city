@@ -29,6 +29,8 @@ def main():
     i: CityPoint
     for count, city_point in enumerate(data):
         read_q.put(city_point)
+        # if count == 100:
+        #     break
 
     for i in range(calc_pc):
         event = Event()
@@ -48,7 +50,7 @@ def main():
     print("--- Processes started ---")
     print(f"--- Events statuses: {all(e.is_set() for e in events)}")
 
-    while not read_q.empty():
+    while not all([read_q.empty(), write_q.empty()]):
         print(f"--- Read queue size: {read_q.qsize()} | Write queue size: {write_q.qsize()} ---")
         print(f"--- Events statuses: {all(e.is_set() for e in events)}")
         print(f"--- Lock event status: {lock_e.is_set()}")
