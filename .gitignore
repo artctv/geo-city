@@ -31,3 +31,5 @@ local/
 
 # current data
 **/data/result**
+**.json
+old
