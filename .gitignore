@@ -19,8 +19,12 @@
 
 ## packaging
 *.egg-info/
-build/
-dist/
+**build/
+**dist/
+
+## c extensions
+**.so
+/geo-city/harvesine/harvesine.c
 
 ## local dev stuff
 local/
@@ -33,3 +37,4 @@ local/
 **/data/result**
 **.json
 old
+
