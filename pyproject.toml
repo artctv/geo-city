@@ -1,15 +1,17 @@
 [tool.poetry]
-name = "geo"
+name = "geo-city"
 version = "0.1.0"
 description = ""
-authors = ["Artem <artctvcode@gmail.com>"]
+authors = ["Artem 'artctv' <artctvcode@gmail.com>"]
+readme = "README.md"
+packages = [{include = "geo_city"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-openpyxl = "^3.0.10"
+python = "3.9.15"
+openpyxl = "^3.1.2"
+cython = "^0.29.34"
 
-[tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
