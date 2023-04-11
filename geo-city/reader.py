@@ -1,33 +1,22 @@
-import pathlib
+from pathlib import Path
+from typing import Generator
 from openpyxl import load_workbook, Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.cell.cell import Cell
-
-import config
-from utils import CityPoint
+from config import Config
 
 
-def get_workbook(file: pathlib.Path) -> Workbook:
-    return load_workbook(file, read_only=True, data_only=True, keep_links=False)
+def load_data(base_folder: Path) -> Generator[list, None, None]:
+    excel_path: Path = base_folder / Config.FILES_FOLDER / Config.FILE_NAME
+    workbook: Workbook = load_workbook(
+        excel_path, read_only=True, data_only=True, keep_links=False
+    )
+    worksheet: Worksheet = workbook[Config.WORKSHEET_NAME]
+    return worksheet.iter_rows(
+        min_row=Config.MIN_ROW, min_col=Config.MIN_COL, max_col=Config.MAX_COL
+    )
 
 
-def get_worksheet(workbook: Workbook, worksheet: str) -> Worksheet:
-    return workbook[worksheet]
-
-
-def get_data() -> list[CityPoint]:
-    excl_path: pathlib.Path = config.BASE_FOLDER / config.FILES_FOLDER / config.EXCEL_NAME
-    workbook: Workbook = get_workbook(excl_path)
-    worksheet: Worksheet = get_worksheet(workbook, config.WORKSHEET_NAME)
-    cities_data: list[CityPoint] = []
-    line: tuple[Cell, Cell, Cell, Cell, Cell]
-    for line in worksheet.iter_rows(min_row=config.MIN_ROW, min_col=config.MIN_COL, max_col=config.MAX_COL):
-        city: Cell
-        lon: Cell
-        lat: Cell
-        city, _, _, lon, lat = line
-        cities_data.append(CityPoint(name=city.value, lon=lon.value, lat=lat.value))
-    return cities_data
-
-
-
+def prepare_data(line: tuple[Cell, Cell, Cell, Cell, Cell]) -> tuple[str, float, float]:
+    city, _, _, lon, lat = line
+    return city.value, lon.value, lat.value
