@@ -33,4 +33,3 @@ def calc_task(
 
             if counter >= Config.FLUSH_COUNT:
                 f.flush()
-
