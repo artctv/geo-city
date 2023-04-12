@@ -44,13 +44,6 @@ double* generate(int n){
     return ptr;
 }
 
-//void show_array (double array[], int number_of_elements)
-//{
-//   for (int i = 0; i < number_of_elements; i++) {
-//       printf("%f10\t", array[i]);
-//   }
-//   printf("\n");
-//}
 
 const int queue_size = 2;
 
@@ -69,8 +62,20 @@ double* combinations_impl(float *queue_values, float *elemts_values, int elemts_
     return arr;
 }
 
-
 int main(){
+    return 0;
+}
+
+// - - - TEST CODE - - -
+
+//void show_array (double array[], int number_of_elements)
+//{
+//   for (int i = 0; i < number_of_elements; i++) {
+//       printf("%f10\t", array[i]);
+//   }
+//   printf("\n");
+//}
+
 //    queue_item = ["str", "float", "float"] -> "str", ["float", "float"]
 //    char queue_key[100] = "п Алейский";
 //    float queue_values[2] = {82.725872, 52.473092};
@@ -85,10 +90,6 @@ int main(){
 //    int n = sizeof elemts_keys[0] / sizeof *elemts_keys[0];
 //    strcat(queue_key, elemts_keys[0]);
 //    printf("%s\n", queue_key);
-
-    return 0;
-}
-
 
 //    char items[][10] = {"10", "11"};
 //    show_array(item, 10);
