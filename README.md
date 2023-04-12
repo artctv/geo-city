@@ -22,3 +22,10 @@ Multiprocessing calculation distance betwen cities
   ```bash
     python3 geo-city/main.py
   ```
+  
+## Остальное
+
+- Скомпилировать C модуль с библиотеками для ручной проверки
+```bash
+  gcc module.c -lm
+```

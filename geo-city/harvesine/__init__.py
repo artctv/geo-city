@@ -3,3 +3,4 @@ import harvesine
 
 
 calculate: Callable
+combinations: Callable

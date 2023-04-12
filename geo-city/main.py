@@ -116,3 +116,4 @@ if __name__ == "__main__":
     folder: pathlib.Path = pathlib.Path(__file__).parent.resolve()
     main(folder)
     merge_data(folder)
+
