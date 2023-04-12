@@ -12,8 +12,8 @@ class Config:
     RESULT_CSV = "result.csv"
     RESULT_EXCEL = "result.xlsx"
 
-    CPU_COUNT = cpu_count()
-    SLEEP_TIME = 30  # sec
+    CPU_COUNT = cpu_count() - 1
+    SLEEP_TIME = 10  # sec
     FLUSH_COUNT = 1_000_000
     PROCES_TMP_PATTERN = "process_{}.txt"
     STRING_PATTERN = "{city_1}||{city_2}||{distance}\n"

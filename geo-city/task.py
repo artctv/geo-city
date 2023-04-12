@@ -1,5 +1,6 @@
 import pathlib
 from multiprocessing import Queue
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from config import Config
 import harvesine.harvesine as hs
 
@@ -20,12 +21,19 @@ def calc_task(
         counter: int = 0
         while not q.empty():
             city, lon_1, lat_1 = q.get()
-            for i in cities:
-                lon_2, lat_2 = data[i]
-                distance = hs.calculate(lon_1, lat_1, lon_2, lat_2)
-                _str = get_string_format(city, i, distance)
-                f.write(_str)
-                counter += 1
+            futures = {}
+            with ThreadPoolExecutor(Config.CPU_COUNT) as executor:
+                for i in cities:
+                    lon_2, lat_2 = data[i]
+                    futures[executor.submit(hs.calculate, lon_1, lat_1, lon_2, lat_2)] = i
+
+                for future in as_completed(futures):
+                    _city = futures[future]
+                    distance = future.result()
+                    # distance = hs.calculate(lon_1, lat_1, lon_2, lat_2)
+                    _str = get_string_format(city, i, distance)
+                    f.write(_str)
+                    counter += 1
 
             if counter >= Config.FLUSH_COUNT:
                 f.flush()

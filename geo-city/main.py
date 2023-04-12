@@ -75,8 +75,8 @@ def prepare_structs(data: Iterable) -> tuple[dict, Queue]:
 def main(base_folder: pathlib.Path):
     print("--- Script started ---")
 
-    # data = load_data(base_folder)
-    data = temp_data(base_folder)
+    data = load_data(base_folder)
+    # data = temp_data(base_folder)
 
     print("--- Data loaded ---")
 
@@ -115,4 +115,4 @@ def main(base_folder: pathlib.Path):
 if __name__ == "__main__":
     folder: pathlib.Path = pathlib.Path(__file__).parent.resolve()
     main(folder)
-    merge_data(folder)
+    # merge_data(folder)
