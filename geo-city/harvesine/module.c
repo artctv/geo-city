@@ -9,7 +9,7 @@
 const short EARTH_RADIUS = 6371;
 
 
-double harvesine_distance_impl(double lon_1, double lat_1, double lon_2, double lat_2){
+int harvesine_distance_impl(double lon_1, double lat_1, double lon_2, double lat_2){
     lon_1 = deg_to_rad(lon_1);
     lat_1 = deg_to_rad(lat_1);
     lon_2 = deg_to_rad(lon_2);
@@ -23,8 +23,8 @@ double harvesine_distance_impl(double lon_1, double lat_1, double lon_2, double 
 }
 
 
-double* allocate(int n){
-    double* ptr = (double*)malloc(sizeof(double) * n);
+int* allocate(int n){
+    int* ptr = (int*)malloc(sizeof(int) * n);
     if (!ptr){
         for (int i = 0; i < n; i++){
             ptr[i] = 0;
@@ -34,11 +34,11 @@ double* allocate(int n){
     return ptr;
 }
 
-double* generate(int n){
-    double* ptr = allocate(n);
+int* generate(int n){
+    int* ptr = allocate(n);
     if (!ptr){
         for (int i = 0; i < n; i++){
-            ptr[i] = (double)i;
+            ptr[i] = i;
         }
     }
     return ptr;
@@ -47,10 +47,10 @@ double* generate(int n){
 
 const int queue_size = 2;
 
-double* combinations_impl(float *queue_values, float *elemts_values, int elemts_size){
+int* combinations_impl(float *queue_values, float *elemts_values, int elemts_size){
     int arr_size = ceil(elemts_size / 2);
-    double* arr = generate(arr_size);
-    double distance;
+    int* arr = generate(arr_size);
+    int distance;
     int p = 0;
     for (int i = 0; i < arr_size; i++) {
         distance = harvesine_distance_impl(
