@@ -83,6 +83,7 @@ def main(base_folder: pathlib.Path):
     d, q = prepare_structs(data)
 
     print("--- Multiprocessing patterns inited ---")
+    print(f"--- Total items: {q.qsize()} ---")
 
     processes: list[Process] = []
     for i in range(Config.CPU_COUNT):
