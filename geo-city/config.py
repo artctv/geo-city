@@ -14,7 +14,7 @@ class Config:
 
     CPU_COUNT = cpu_count()
     SLEEP_TIME = 10  # sec
-    FLUSH_COUNT = 100_000
+    FLUSH_COUNT = 1_000_000
     PROCES_TMP_PATTERN = "process_{}.txt"
     STRING_PATTERN = "{city_1}||{city_2}||{distance}\n"
 

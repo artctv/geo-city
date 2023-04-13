@@ -1,4 +1,5 @@
 # cython: boundscheck=False
+# cython: language_level=2
 from cpython cimport array
 from libc.stdlib cimport free
 
@@ -23,7 +24,8 @@ cdef convert_to_python(int *ptr, int n):
     return lst
 
 cdef int* harvesine_array(float *queue_values, float *elemts_values, int elemts_size) nogil:
-    return combinations_impl(queue_values, elemts_values, elemts_size);
+    with nogil:
+        return combinations_impl(queue_values, elemts_values, elemts_size);
 
 def combinations(queue_values, elemts_values, elemts_size):
     cdef int* result;
