@@ -36,3 +36,4 @@ local/
 geo-city/temp/
 
 
+/geo-city/calculation/calculation.c
