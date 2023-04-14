@@ -4,7 +4,7 @@ from typing import Generator
 from openpyxl import load_workbook, Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.cell.cell import Cell
-from .config import Config
+from config import Config
 
 
 data_T = list[tuple[str, float, float]]
@@ -51,7 +51,7 @@ def _load_temp_data(data_count: int = 0) -> data_T:
     return data
 
 
-def get_data(temp: bool = False, data_count: int = 0) -> data_T:
+def get_data(temp: bool, data_count: int) -> data_T:
     data: list[tuple[str, float, float]]
     if temp:
         os.makedirs(Config.TEMP_FOLDER, exist_ok=True)
