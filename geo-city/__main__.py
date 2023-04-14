@@ -1,4 +1,5 @@
 import argparse
+from .main import run
 
 
 parser = argparse.ArgumentParser(description="Load data param")
@@ -18,3 +19,4 @@ parser.add_argument(
 
 if __name__ == "__main__":
     args = parser.parse_args()
+    data = run(args.temp, args.data_count)
