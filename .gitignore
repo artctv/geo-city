@@ -24,7 +24,6 @@
 
 ## c extensions
 **.so
-/geo-city/harvesine/harvesine.c
 
 ## local dev stuff
 local/
@@ -34,7 +33,7 @@ local/
 .atom
 
 # temp data
-**.json
-geo-city/data/**.txt
-old
+geo-city/temp/
 
+
+/geo-city/calculation/calculation.c
