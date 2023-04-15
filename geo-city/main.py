@@ -6,12 +6,10 @@ from process import calculate
 from config import Config
 
 
-def main(temp: bool = False, data_count: int = 0):
-    print("--- Script started ---")
+data_T = list[tuple[str, float, float]]
 
-    data = get_data(temp, data_count)
-    print("--- Data loaded ---")
 
+def run_with_proc(data: data_T):
     queue: Queue = Queue()
     for i in data:
         queue.put(deepcopy(i))
@@ -19,7 +17,7 @@ def main(temp: bool = False, data_count: int = 0):
 
     processes: list[Process] = []
     for i in range(Config.CPU_COUNT):
-        p = Process(target=calculate, args=(i+1, queue, data))
+        p = Process(target=calculate, args=(i + 1, queue, data))
         processes.append(p)
 
     print("--- Processes created ---")
@@ -43,4 +41,26 @@ def main(temp: bool = False, data_count: int = 0):
         p.terminate()
 
     print("--- Processes terminated ---")
+
+
+def run_without_proc(data: data_T):
+    queue: Queue = Queue()
+    for i in data:
+        queue.put(deepcopy(i))
+
+    calculate(0, queue, data)
+
+
+def main(temp: bool = False, data_count: int = 0, without_proc: bool = False):
+    print("--- Script started ---")
+
+    data: data_T = get_data(temp, data_count)
+    print("--- Data loaded ---")
+
+    if without_proc:
+        run_without_proc(data)
+    else:
+        run_with_proc(data)
+
+    print("--- Script finished ---")
 
