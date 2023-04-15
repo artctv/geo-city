@@ -3,7 +3,7 @@ import cython
 from libc.stdlib cimport free
 from libc.string cimport memset
 from cpython cimport array
-import array
+
 
 cdef extern from "module.c" nogil:
     int* combinations_impl(double lon_1, double lat_1, double *values, int values_size);
