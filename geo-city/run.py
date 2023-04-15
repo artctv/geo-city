@@ -16,8 +16,14 @@ parser.add_argument(
     type=int,
     help="how many data need to load, by default load all"
 )
+parser.add_argument(
+    "-wp", "--without-proc",
+    default=False,
+    action=argparse.BooleanOptionalAction,
+    help="use processes or not"
+)
 
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    main(args.temp, args.data_count)
+    main(args.temp, args.data_count, args.without_proc)
