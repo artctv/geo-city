@@ -15,8 +15,8 @@ class Config:
     MAX_COL = 5
 
     CPU_COUNT = cpu_count()
-    SLEEP_TIME = 10  # sec
+    SLEEP_TIME = 30  # sec
     FLUSH_COUNT = 1_000_000
-    PROCES_TMP_PATTERN = "process_{}.txt"
+    PROCES_TMP_PATTERN = "process_{}.csv"
     STRING_PATTERN = "{city_1}||{city_2}||{distance}\n"
 
