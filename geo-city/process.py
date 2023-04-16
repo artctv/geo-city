@@ -11,22 +11,18 @@ data_T = list[tuple[str, float, float]]
 
 
 def write(queue: Queue, data: data_T, e: Event):
-    counter: int = 0
-    file = Config.TEMP_FOLDER / Config.RESULT_FILE
     angle_key: Final[Literal["City/City"]] = "City/City"
     cities: list[str] = [angle_key]  # for element in A:1 in csv file
     for i in data:
         cities.append(deepcopy(i[0]))
-
     cities: dict[str, Union[str, int]] = dict.fromkeys(cities, 0)
-
-    with open(file, 'w', newline='') as csvfile:
+    with open(Config.RESULT_FILE, 'w', newline='') as csvfile:
         writer = csv.writer(
             csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL
         )
         writer.writerow(cities.keys())
 
-        print("--- Writing started ---")
+        counter: int = 0
         obj: dict[str, list[tuple[str, int]]]
         while not e.is_set():
             obj = queue.get()
@@ -43,28 +39,28 @@ def write(queue: Queue, data: data_T, e: Event):
                 counter = 0
 
 
-def calculate(
-    queue: Queue,
-    write_queue: Queue,
-    data: data_T
-):
-    cities, coordinates = [], []
+def calculate(queue: Queue, write_queue: Queue, data: data_T):
+    cities, coordinates = [], []  # noqa
     for i in data:
-        cities.append(deepcopy(i[0]))
+        cities.append(deepcopy(i))
         coordinates.append(i[1])
         coordinates.append(i[2])
 
-    values: array.array = array.array("d", coordinates)
-    values_size = len(coordinates)
-    coordinates.clear()
-    result_array: array.array = array.array("i", [0 for i in range(values_size)])
-    to_write_queue: dict[str, list[tuple[str, int]]] = {}
+    size: int = len(coordinates)
+    coordinates: array.array = array.array("d", coordinates)
+    result: array.array = array.array("i", [0 for _ in range(size)])
+    data.clear()
+
+    to_write: dict[str, list[tuple[str, int]]] = {}
+    buff: list[tuple[str, int]] = []
     while not queue.empty():
         city_1, lon_1, lat_1 = queue.get()
-        distances = combinations(lon_1, lat_1, values, values_size, result_array)
-        buff: list[tuple[str, int]] = []
+        distances = combinations(lon_1, lat_1, coordinates, size, result)
         for city_2, distance in zip(cities, distances):
-            buff.append((city_2, distance,))  # noqa
-        to_write_queue[city_1] = buff
-        write_queue.put(deepcopy(to_write_queue))
-        to_write_queue.clear()
+            buff.append((city_2, distance,))
+
+        to_write[city_1] = deepcopy(buff)
+        write_queue.put(deepcopy(to_write))
+        to_write.clear()
+        buff.clear()
+
