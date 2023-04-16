@@ -81,6 +81,7 @@ def main(temp: bool = False, data_count: int = 0, without_proc: bool = False):
     data: data_T = get_data(temp, data_count)
     data = sorted(data, key=itemgetter(0))
     print("--- Data loaded ---")
+    print(f"--- Total number of elements: {len(data)} ---")
     queue: Queue = Queue()
     write_queue: Queue = Queue()
     for i in data:
